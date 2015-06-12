@@ -1,4 +1,4 @@
-# require 'pry'
+require 'pry'
 
 # input = {
 #   :oo => {
@@ -32,24 +32,27 @@
 #   }
 # }
 
-def reformat_languages(languages)
+def reformat_languages(language_styles)
   # your code here
 
   hash_by_languages = {}
 
-  languages.each do |style, languages|
-    languages.keys.each do |language|
-      hash_by_languages[language] = {
-        type: "",
-        style: []
-      }
-    end
-  end
 
-  languages.each do |style, languages|
+  language_styles.each do |style, languages|
     languages.each do |language, type|
-      hash_by_languages[language][:type] = type.values.first
-      hash_by_languages[language][:style] << style
+
+      if hash_by_languages[language]
+        hash_by_languages[language][:type] = type.values.first
+        hash_by_languages[language][:style] << style
+      else
+        hash_by_languages[language] = {
+          type: "",
+          style: []
+        }
+        hash_by_languages[language][:type] = type.values.first
+        hash_by_languages[language][:style] << style
+      end
+
     end
   end
 
